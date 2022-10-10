@@ -60,15 +60,19 @@ $(function() {
 
 
     // typejs
-    $('.header .caption h3').typed({
-        strings: ["Drupal Developer", "Blogger", "You Tuber"],
-        loop: true,
-        startDelay: 1000,
-        backDelay: 1000,
-        typeSpeed: 30,
-        showCursor: true,
-		cursorChar: '|',
-		autoInsertCss: true
+    $(".header .caption h3").typed({
+      strings: [
+        "Software Engineer (Drupal Developer)",
+        "Tech Blogger (www.toswebdeveloper.com)",
+        "Smartphone Photographer",
+      ],
+      loop: true,
+      startDelay: 1000,
+      backDelay: 1000,
+      typeSpeed: 30,
+      showCursor: true,
+      cursorChar: "|",
+      autoInsertCss: true,
     });
 
 
@@ -96,9 +100,9 @@ $(function() {
    	// progress bar
     wind.on('scroll', function () {
         $(".skills-progress span").each(function () {
-            var bottom_of_object = 
+            var bottom_of_object =
             $(this).offset().top + $(this).outerHeight();
-            var bottom_of_window = 
+            var bottom_of_window =
             $(window).scrollTop() + $(window).height();
             var myVal = $(this).attr('data-value');
             if(bottom_of_window > bottom_of_object) {
@@ -159,7 +163,7 @@ $(function() {
         $(".social").toggleClass("social-active");
 
     });
-    
+
 
 });
 
