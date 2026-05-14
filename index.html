@@ -1,840 +1,974 @@
-<!doctype html>
-<html class="no-js" lang="en">
-   <head>
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110947218-1"></script>
-      <script>
-         window.dataLayer = window.dataLayer || [];
-         function gtag() {
-           dataLayer.push(arguments);
-         }
-         gtag('js', new Date());
-         gtag('config', 'UA-110947218-1');
-      </script>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>omrmankar | Omprakash Mankar</title>
-      <meta name="description" content="The personal portfolio of Omprakash Mankar">
-      <meta name="keywords" content="portfolio, personal, corporate, business, parallax, creative, agency">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <!-- google fonts -->
-      <link href="https://fonts.googleapis.com/css?family=Muli:200,300,400,600,700,,800,900|Josefin+Sans:300,400,600,700" rel="stylesheet">
-      <!-- owl carousel CSS -->
-      <link rel="stylesheet" href="css/owl.carousel.min.css">
-      <link rel="stylesheet" href="css/owl.theme.default.min.css">
-      <!-- magnific-popup CSS -->
-      <link rel="stylesheet" href="css/magnific-popup.css">
-      <!-- Font Icon Core CSS -->
-      <link rel="stylesheet" href="css/font-awesome.min.css">
-      <link rel="stylesheet" href="css/et-line.css">
-      <link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-      <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-      <!-- Core Style Css -->
-      <link rel="stylesheet" href="css/style.css">
-      <!--[if lt IE 9]-->
-      <script src="js/html5shiv.min.js"></script>
-      <!--[endif]-->
-   </head>
-   <body>
-      <!-- ====== Preloader ======  -->
-      <div class="loading">
-         <div class="load-circle"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Omprakash Mankar — Senior Drupal Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  :root {
+    --bg: #050810;
+    --surface: #0b1120;
+    --card: #0e1628;
+    --accent: #00e5ff;
+    --accent2: #7c3aed;
+    --accent3: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(0,229,255,0.12);
+    --glow: 0 0 40px rgba(0,229,255,0.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  #cursor {
+    position: fixed; top: 0; left: 0; z-index: 9999;
+    pointer-events: none; mix-blend-mode: difference;
+  }
+  #cursor-dot {
+    width: 8px; height: 8px; background: var(--accent);
+    border-radius: 50%; position: absolute;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s;
+  }
+  #cursor-ring {
+    width: 36px; height: 36px; border: 1.5px solid var(--accent);
+    border-radius: 50%; position: absolute;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+    opacity: 0.6;
+  }
+  body:has(a:hover) #cursor-ring,
+  body:has(button:hover) #cursor-ring { width: 52px; height: 52px; opacity: 1; }
+
+  /* Canvas */
+  #bg-canvas {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(5,8,16,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem; font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--text); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px; background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* Sections */
+  section {
+    position: relative; z-index: 1;
+    min-height: 100vh; padding: 7rem 3rem 5rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  /* Hero */
+  #hero {
+    display: flex; flex-direction: column;
+    justify-content: center; min-height: 100vh;
+    padding-top: 7rem;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.25em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 40px; height: 1px; background: var(--accent);
+  }
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 800; line-height: 0.95;
+    letter-spacing: -0.03em;
+    opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-title .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--accent);
+    display: block;
+  }
+  .hero-sub {
+    margin-top: 2rem;
+    font-size: 0.9rem; color: var(--muted);
+    max-width: 500px; line-height: 1.8;
+    opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-badges {
+    display: flex; flex-wrap: wrap; gap: 0.75rem;
+    margin-top: 2.5rem;
+    opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .badge {
+    padding: 0.4rem 1rem; border: 1px solid var(--border);
+    border-radius: 100px; font-size: 0.72rem;
+    color: var(--accent); letter-spacing: 0.05em;
+    background: rgba(0,229,255,0.05);
+    transition: all 0.3s;
+  }
+  .badge:hover { background: rgba(0,229,255,0.12); border-color: var(--accent); }
+
+  .hero-cta {
+    display: flex; gap: 1.5rem; margin-top: 3rem;
+    opacity: 0; animation: fadeUp 0.8s 1s forwards;
+  }
+  .btn-primary {
+    padding: 0.85rem 2rem; background: var(--accent);
+    color: var(--bg); font-family: 'Space Mono', monospace;
+    font-size: 0.78rem; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none;
+    border: none; cursor: none;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: all 0.3s; font-weight: 700;
+  }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+  .btn-outline {
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--border);
+    color: var(--text); font-family: 'Space Mono', monospace;
+    font-size: 0.78rem; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none;
+    cursor: none;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute; bottom: 3rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    opacity: 0; animation: fadeIn 1s 1.5s forwards;
+  }
+  .scroll-text { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
+  .scroll-line {
+    width: 1px; height: 60px; background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 1.5s ease-in-out infinite;
+  }
+
+  /* Section headers */
+  .sec-header { margin-bottom: 4rem; }
+  .sec-num {
+    font-size: 0.68rem; letter-spacing: 0.25em;
+    color: var(--accent); text-transform: uppercase;
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+  }
+  .sec-num::before { content: ''; width: 30px; height: 1px; background: var(--accent); }
+  .sec-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800; line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* About */
+  #about .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .about-text p {
+    color: var(--muted); line-height: 2; font-size: 0.88rem;
+    margin-bottom: 1.5rem;
+  }
+  .about-text p span { color: var(--accent); }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .stat-card {
+    padding: 2rem; background: var(--card);
+    border: 1px solid var(--border);
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+    transition: all 0.4s;
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(0,229,255,0.05), transparent);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .stat-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .stat-card:hover::before { opacity: 1; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem; font-weight: 800;
+    color: var(--accent); line-height: 1;
+  }
+  .stat-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; margin-top: 0.5rem; }
+
+  .industries-list {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem;
+  }
+  .ind-tag {
+    padding: 0.3rem 0.8rem; background: rgba(124,58,237,0.1);
+    border: 1px solid rgba(124,58,237,0.3);
+    border-radius: 4px; font-size: 0.68rem;
+    color: #a78bfa; letter-spacing: 0.05em;
+  }
+
+  /* Skills */
+  #skills { background: none; }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .skill-card {
+    padding: 2rem; background: var(--card);
+    border: 1px solid var(--border);
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    transition: all 0.4s;
+    cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .skill-card::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; height: 2px;
+    background: linear-gradient(to right, var(--accent), var(--accent2));
+    width: 0; transition: width 0.4s;
+  }
+  .skill-card:hover { transform: translateY(-6px); border-color: rgba(0,229,255,0.3); }
+  .skill-card:hover::after { width: 100%; }
+  .skill-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .skill-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--text); margin-bottom: 0.75rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill-tag {
+    padding: 0.2rem 0.6rem; background: rgba(0,229,255,0.06);
+    border: 1px solid rgba(0,229,255,0.15);
+    font-size: 0.65rem; color: var(--muted);
+    border-radius: 3px;
+  }
+
+  /* Projects */
+  #projects .projects-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 2rem;
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+    transition: all 0.4s; position: relative; overflow: hidden;
+    group: true;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .project-card:hover { transform: translateY(-6px); border-color: rgba(0,229,255,0.25); box-shadow: var(--glow); }
+  .project-card:hover::before { opacity: 1; }
+  .project-num {
+    font-size: 0.65rem; color: var(--accent); letter-spacing: 0.2em;
+    margin-bottom: 1rem; font-family: 'Space Mono', monospace;
+  }
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem;
+  }
+  .project-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+  .project-link {
+    font-size: 0.72rem; color: var(--accent);
+    text-decoration: none; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: gap 0.3s;
+  }
+  .project-link:hover { gap: 0.9rem; }
+
+  /* Experience */
+  #experience .timeline {
+    position: relative; padding-left: 2rem;
+  }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 3.5rem;
+    padding-left: 2.5rem;
+    opacity: 0; transform: translateX(-20px);
+    transition: all 0.6s;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-dot {
+    position: absolute; left: -2rem; top: 0.35rem;
+    width: 10px; height: 10px; background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--accent);
+  }
+  .timeline-dot::before {
+    content: ''; position: absolute; inset: -4px;
+    border: 1px solid rgba(0,229,255,0.3);
+    border-radius: 50%;
+  }
+  .timeline-period {
+    font-size: 0.68rem; color: var(--accent); letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .timeline-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem; font-weight: 700; margin-bottom: 0.25rem;
+  }
+  .timeline-company {
+    font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem;
+  }
+  .timeline-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.9; }
+
+  /* Contact */
+  #contact {
+    min-height: 80vh;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .contact-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 5rem; align-items: start; margin-top: 4rem;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1.5rem;
+    padding: 1.5rem; background: var(--card);
+    border: 1px solid var(--border); text-decoration: none; color: var(--text);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: all 0.4s;
+  }
+  .contact-link:hover { border-color: var(--accent); transform: translateX(8px); }
+  .contact-link:hover .cl-icon { color: var(--accent); }
+  .cl-icon { font-size: 1.3rem; transition: color 0.3s; }
+  .cl-info {}
+  .cl-label { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .cl-val { font-size: 0.88rem; margin-top: 0.2rem; }
+
+  .contact-note {
+    padding: 2.5rem; background: var(--card);
+    border: 1px solid var(--border);
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+  .contact-note h3 {
+    font-family: 'Syne', sans-serif; font-size: 1.4rem;
+    font-weight: 700; margin-bottom: 1rem;
+  }
+  .contact-note p { font-size: 0.82rem; color: var(--muted); line-height: 1.9; }
+
+  /* Footer */
+  footer {
+    position: relative; z-index: 1;
+    padding: 2rem 3rem; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+    font-size: 0.72rem; color: var(--muted);
+  }
+  footer span { color: var(--accent); }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.7); opacity: 0.4; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: all 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Scanline overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* Glitch effect on name */
+  .glitch {
+    position: relative;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    font-family: inherit; font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+  }
+  .glitch::before {
+    color: var(--accent); left: 2px;
+    clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+    animation: glitchTop 4s infinite;
+  }
+  .glitch::after {
+    color: var(--accent2); left: -2px;
+    clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+    animation: glitchBottom 4s infinite;
+  }
+  @keyframes glitchTop {
+    0%, 90%, 100% { transform: none; opacity: 0; }
+    92% { transform: translateX(-4px); opacity: 0.7; }
+    95% { transform: translateX(4px); opacity: 0.7; }
+    97% { transform: translateX(0); opacity: 0; }
+  }
+  @keyframes glitchBottom {
+    0%, 93%, 100% { transform: none; opacity: 0; }
+    95% { transform: translateX(4px); opacity: 0.7; }
+    98% { transform: translateX(-4px); opacity: 0.7; }
+  }
+
+  /* Floating avatar */
+  .avatar-3d {
+    width: 100%; max-width: 360px; margin: 0 auto;
+    display: flex; justify-content: center;
+    animation: float 4s ease-in-out infinite;
+  }
+  .avatar-frame {
+    width: 260px; height: 260px;
+    background: linear-gradient(135deg, var(--accent2) 0%, var(--accent) 100%);
+    padding: 3px;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    position: relative;
+  }
+  .avatar-inner {
+    width: 100%; height: 100%;
+    background: var(--card);
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+  }
+  .orbit {
+    position: absolute; border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 50%;
+    animation: spin linear infinite;
+  }
+  .orbit-1 { width: 320px; height: 320px; top: -30px; left: -30px; animation-duration: 12s; }
+  .orbit-2 { width: 390px; height: 390px; top: -65px; left: -65px; animation-duration: 20s; animation-direction: reverse; }
+  .orbit-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); position: absolute; top: -4px; left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px var(--accent);
+  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 6rem 1.5rem 3rem; }
+    #about .about-grid,
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .skills-grid { grid-template-columns: 1fr; }
+    #projects .projects-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor">
+  <div id="cursor-ring"></div>
+  <div id="cursor-dot"></div>
+</div>
+
+<!-- 3D Canvas -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">OM<span>R</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">Senior Drupal Developer</div>
+  <h1 class="hero-title">
+    <span class="glitch" data-text="Omprakash">Omprakash</span>
+    <span class="line2">Mankar_</span>
+  </h1>
+  <p class="hero-sub">
+    Crafting powerful Drupal experiences — from custom modules to pixel-perfect themes.
+    Based in <span style="color:var(--accent)">Pune, Maharashtra</span> · Currently at <span style="color:var(--accent)">UnifyCX</span>.
+  </p>
+  <div class="hero-badges">
+    <span class="badge">Drupal</span>
+    <span class="badge">PHP</span>
+    <span class="badge">Twig</span>
+    <span class="badge">Custom Modules</span>
+    <span class="badge">Theme Dev</span>
+    <span class="badge">Site Building</span>
+    <span class="badge">Open Source</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="#contact" class="btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-scroll">
+    <span class="scroll-text">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-header reveal">
+    <div class="sec-num">01 — About</div>
+    <h2 class="sec-title">Who I Am</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm an experienced <span>Drupal developer</span> focused on site building, frontend, and backend development. For nearly a decade, I've been building robust digital solutions on Drupal.</p>
+      <p>I've contributed <span>8+ open-source modules</span> to the Drupal ecosystem, ranging from field formatters to AI integrations. I also mentor new contributors and help grow the community.</p>
+      <p>My work spans across industries including <span>Government, Healthcare, Banking, Education</span>, and Pharmaceuticals — building secure, scalable, content-driven platforms.</p>
+      <div class="industries-list">
+        <span class="ind-tag">Government</span>
+        <span class="ind-tag">Healthcare</span>
+        <span class="ind-tag">Education</span>
+        <span class="ind-tag">Banking</span>
+        <span class="ind-tag">Pharmaceutical</span>
+        <span class="ind-tag">Organisation</span>
       </div>
-      <!-- ======End Preloader ======  -->
-      <!-- ====== button-top ======  -->
-      <div class="button-top" data-scroll-nav="0">
-         <span>
-         <i class="fa fa-angle-up" aria-hidden="true"></i>
-         </span>
+    </div>
+    <div class="about-stats reveal">
+      <div class="avatar-3d" style="position:relative;height:260px;margin-bottom:2rem">
+        <div style="position:relative;display:inline-block;width:260px;height:260px">
+          <div class="orbit orbit-1"><div class="orbit-dot"></div></div>
+          <div class="orbit orbit-2"><div class="orbit-dot" style="background:var(--accent2)"></div></div>
+          <div class="avatar-frame">
+            <div class="avatar-inner">👨‍💻</div>
+          </div>
+        </div>
       </div>
-      <!-- ======End button-top ======  -->
-      <!-- ====== Navgition ======  -->
-      <nav class="navbar navbar-default">
-         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-icon-collapse" aria-expanded="false">
-               <span class="sr-only">Toggle navigation</span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               </button>
-               <!-- logo -->
-               <a href="#">
-                  <div class="logo">
-                     <span>omrmankar</span>
-                  </div>
-               </a>
-            </div>
-            <!-- Collect the nav links, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="nav-icon-collapse">
-               <!-- links -->
-               <ul class="nav navbar-nav navbar-right">
-                  <li>
-                     <a href="#" data-scroll-nav="0" class="active">Home</a>
-                  </li>
-                  <li>
-                     <a href="#" data-scroll-nav="1">About</a>
-                  </li>
-                  <li>
-                     <a href="#" data-scroll-nav="2">Resume</a>
-                  </li>
-                  <li>
-                     <a href="#" data-scroll-nav="3">Photos</a>
-                  </li>
-                  <li>
-                     <a href="#" data-scroll-nav="4">Services</a>
-                  </li>
-                  <li>
-                     <a href="https://toswebdeveloper.com/blog" target='_blank'>Blogs</a>
-                  </li>
-                  <li>
-                     <a href="#" data-scroll-nav="5">Contact</a>
-                  </li>
-               </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-         </div>
-         <!-- /.container -->
-      </nav>
-      <!-- ====== End Navgition ======  -->
-      <!-- ====== Header ======  -->
-      <section class="header" data-scroll-index="0">
-         <!-- particles -->
-         <div id="particles-js"></div>
-         <div class="container">
-            <div class="row">
-               <div class="v-middle">
-                  <div class="caption">
-										<h4>Hello !</h4>
-                     <h1>I'M Omprakash Mankar</h1>
-                     <div class="type">
-                        <h3></h3>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- ====== End Header ======  -->
-      <!-- ====== Hero ======  -->
-      <section class="hero section-padding" data-scroll-index="1">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-4">
-                  <div class="hero-img">
-                     <img src="img/omrmankar.jpg" alt="hero">
-                  </div>
-               </div>
-               <div class="col-md-offset-1 col-md-7 mb-100">
-                  <div class="hero-content">
-                     <h4 class="head-left">More Info About Me</h4>
-                     <p>Greetings, my name is Omprakash Mankar, and I am a Drupal Developer. I have over 6+ years of Drupal expertise which includes backend and frontend development, working experience with major Drupal modules, and developing a custom module and custom theme. Since I began designing websites in 2015, I have created my own website <a href='omrmankar.github.io' target='_blank'>omrmankar.github.io</a>, and launched a blog about free web development tips, snippets, and code. <a href='https://toswebdeveloper.com/blog/' target='_blank'>https://toswebdeveloper.com/blog/</a>
-                     </p>
-                     <div class="info">
-                        <div class="row">
-                           <div class="col-md-4 col-sm-6">
-                              <h5>
-                                 <span>
-                                 <i class="icon ion-person"></i>
-                                 </span>Omprakash Mankar
-                              </h5>
-                           </div>
-                           <div class="col-md-4 col-sm-6">
-                              <h5>
-                                 <a target="_blank" href="https://www.drupal.org/u/omrmankar">
-                                 <span>
-                                 <i class="fa fa-drupal" aria-hidden="true"></i>
-                                 </span>Drupal Developer </a>
-                              </h5>
-                           </div>
-                           <div class="col-md-4 col-sm-6">
-                              <h5>
-                                 <span>
-                                 <i class="icon ion-location"></i>
-                                 </span>Maharashtra, India
-                              </h5>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="social-icon">
-                        <a target="_blank" href="https://twitter.com/omrmankar">
-                        <span>
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                        </span>
-                        </a>
-                        <a target="_blank" href="https://in.linkedin.com/in/omrmankar">
-                        <span>
-                        <i class="fa fa-linkedin" aria-hidden="true"></i>
-                        </span>
-                        </a>
-                        <a target="_blank" href="https://instagram.com/omrmankar/">
-                        <span>
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        </span>
-                        </a>
-                        <a target="_blank" href="https://www.drupal.org/u/omrmankar">
-                        <span>
-                        <i class="fa fa-drupal" aria-hidden="true"></i>
-                        </span>
-                        </a>
-                     </div>
-                  </div>
-               </div>
-               <div class="clear-fix"></div>
-               <br>
-               <br>
-               <br>
-               <br>
-               <br>
-               <br>
-               <div class="col-sm-6">
-                  <div class="skills">
-                     <div class="item">
-                        <h6>Drupal Developer</h6>
-                        <div class="skills-progress">
-                           <span data-value='95%'></span>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <h6>PHP Developer</h6>
-                        <div class="skills-progress">
-                           <span data-value='75%'></span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-sm-6">
-                  <div class="skills">
-                     <div class="item">
-                        <h6>Flask Developer</h6>
-                        <div class="skills-progress">
-                           <span data-value='50%'></span>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <h6>Python Developer</h6>
-                        <div class="skills-progress">
-                           <span data-value='60%'></span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-sm-12">
-                  <div class="skills">
-                     <div class="item">
-                        <h6>Tech Blogger</h6>
-                        <div class="skills-progress">
-                           <span data-value='90%'></span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="clear-fix"></div>
-            </div>
-         </div>
-      </section>
-      <!-- ====== End Hero ======  -->
-      <!-- ====== Resume ======  -->
-      <section class="resume section-padding" data-scroll-index="2">
-         <div class="container">
-            <div class="section-head">
-               <h3>My Resume</h3>
-            </div>
-            <div class="row">
-               <div class="col-md-offset-2 col-md-8">
-                  <div class="tabs">
-                     <!-- tabs-icon -->
-                     <div class="tabs-icon">
-                        <ul>
-                           <li id="tab-1" class="active">
-                              <span class="ion-briefcase"></span>
-                              <h6 class="sm-title">EXPERIENCE</h6>
-                           </li>
-                        </ul>
-                     </div>
-                     <div class="resume-content">
-                        <!-- tabs-content -->
-                        <div id="tab-1-content" class="item active">
-                           <div class="content">
-                              <ul>
-                                 <li>
-                                    <h6 class="sm-title">Senior Software Engineer (Drupal Developer) - Diya System</h6>
-                                    <span class="date">Jun 2022 - Present</span>
-                                    <p>Working on Drupal, Flask, and Python technologies.</p>
-                                 </li>
-                                 <li>
-                                    <h6 class="sm-title">Software Engineer (Drupal Developer) - OpenSense Labs</h6>
-                                    <span class="date">Jun 2021 - May 2022</span>
-                                    <p>Working on Drupal technologies.</p>
-                                 </li>
-                                 <li>
-                                    <h6 class="sm-title">Software Engineer (Drupal Developer) - NeoSOFT Technologies (A CMMi Level 5 Organization)</h6>
-                                    <span class="date">Mar 2019 - Jun 2021</span>
-                                    <p>Working on Drupal technologies.</p>
-                                 </li>
-                                 <li>
-                                    <h6 class="sm-title">Software Engineer (Drupal Developer) - Newtechfusion Cybertech Pvt Ltd.</h6>
-                                    <span class="date">Dec 2016 - Feb 2019</span>
-                                    <p>Working on Drupal, PHP and Other technologies.</p>
-                                 </li>
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         </div>
-         </div>
-      </section>
-      <!-- ====== End Resume ======  -->
-      <!-- ====== Photo ======  -->
-      <section class="resume section-padding" data-scroll-index="3">
-         <div class="container gallery-container">
-            <div class="section-head">
-               <h3>Photos</h3>
-            </div>
-            <div class="tz-gallery">
-               <div class="row">
-                  <div class="col-sm-6 col-md-4">
-                     <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/BvnYv4LgkV6/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-                        <div style="padding:16px;">
-                           <a href="https://www.instagram.com/p/BvnYv4LgkV6/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank">
-                              <div style=" display: flex; flex-direction: row; align-items: center;">
-                                 <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div>
-                                 <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div>
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div>
-                                 </div>
-                              </div>
-                              <div style="padding: 19% 0;"></div>
-                              <div style="display:block; height:50px; margin:0 auto 12px; width:50px;">
-                                 <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                       <g transform="translate(-511.000000, -20.000000)" fill="#000000">
-                                          <g>
-                                             <path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path>
-                                          </g>
-                                       </g>
-                                    </g>
-                                 </svg>
-                              </div>
-                              <div style="padding-top: 8px;">
-                                 <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div>
-                              </div>
-                              <div style="padding: 12.5% 0;"></div>
-                              <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
-                                 <div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div>
-                                    <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div>
-                                 </div>
-                                 <div style="margin-left: 8px;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div>
-                                    <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div>
-                                 </div>
-                                 <div style="margin-left: auto;">
-                                    <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div>
-                                    <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div>
-                                    <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div>
-                                 </div>
-                              </div>
-                              <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div>
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div>
-                              </div>
-                           </a>
-                           <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/BvnYv4LgkV6/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Omprakash Mankar (@omrmankar)</a></p>
-                        </div>
-                     </blockquote>
-                  </div>
-                  <div class="col-sm-6 col-md-4">
-                     <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/B0QMDknJd6h/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-                        <div style="padding:16px;">
-                           <a href="https://www.instagram.com/p/B0QMDknJd6h/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank">
-                              <div style=" display: flex; flex-direction: row; align-items: center;">
-                                 <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div>
-                                 <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div>
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div>
-                                 </div>
-                              </div>
-                              <div style="padding: 19% 0;"></div>
-                              <div style="display:block; height:50px; margin:0 auto 12px; width:50px;">
-                                 <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                       <g transform="translate(-511.000000, -20.000000)" fill="#000000">
-                                          <g>
-                                             <path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path>
-                                          </g>
-                                       </g>
-                                    </g>
-                                 </svg>
-                              </div>
-                              <div style="padding-top: 8px;">
-                                 <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div>
-                              </div>
-                              <div style="padding: 12.5% 0;"></div>
-                              <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
-                                 <div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div>
-                                    <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div>
-                                 </div>
-                                 <div style="margin-left: 8px;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div>
-                                    <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div>
-                                 </div>
-                                 <div style="margin-left: auto;">
-                                    <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div>
-                                    <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div>
-                                    <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div>
-                                 </div>
-                              </div>
-                              <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div>
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div>
-                              </div>
-                           </a>
-                           <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/B0QMDknJd6h/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Omprakash Mankar (@omrmankar)</a></p>
-                        </div>
-                     </blockquote>
-                  </div>
-                  <div class="col-sm-6 col-md-4">
-                     <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CXQkQNvJ350/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-                        <div style="padding:16px;">
-                           <a href="https://www.instagram.com/p/CXQkQNvJ350/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank">
-                              <div style=" display: flex; flex-direction: row; align-items: center;">
-                                 <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div>
-                                 <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div>
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div>
-                                 </div>
-                              </div>
-                              <div style="padding: 19% 0;"></div>
-                              <div style="display:block; height:50px; margin:0 auto 12px; width:50px;">
-                                 <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                       <g transform="translate(-511.000000, -20.000000)" fill="#000000">
-                                          <g>
-                                             <path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path>
-                                          </g>
-                                       </g>
-                                    </g>
-                                 </svg>
-                              </div>
-                              <div style="padding-top: 8px;">
-                                 <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div>
-                              </div>
-                              <div style="padding: 12.5% 0;"></div>
-                              <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
-                                 <div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div>
-                                    <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div>
-                                 </div>
-                                 <div style="margin-left: 8px;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div>
-                                    <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div>
-                                 </div>
-                                 <div style="margin-left: auto;">
-                                    <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div>
-                                    <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div>
-                                    <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div>
-                                 </div>
-                              </div>
-                              <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div>
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div>
-                              </div>
-                           </a>
-                           <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/CXQkQNvJ350/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Omprakash Mankar (@omrmankar)</a></p>
-                        </div>
-                     </blockquote>
-                  </div>
-                  <div class="col-sm-6 col-md-4">
-                     <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CjLm9EyjpGi/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-                        <div style="padding:16px;">
-                           <a href="https://www.instagram.com/p/CjLm9EyjpGi/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank">
-                              <div style=" display: flex; flex-direction: row; align-items: center;">
-                                 <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div>
-                                 <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div>
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div>
-                                 </div>
-                              </div>
-                              <div style="padding: 19% 0;"></div>
-                              <div style="display:block; height:50px; margin:0 auto 12px; width:50px;">
-                                 <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                       <g transform="translate(-511.000000, -20.000000)" fill="#000000">
-                                          <g>
-                                             <path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path>
-                                          </g>
-                                       </g>
-                                    </g>
-                                 </svg>
-                              </div>
-                              <div style="padding-top: 8px;">
-                                 <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div>
-                              </div>
-                              <div style="padding: 12.5% 0;"></div>
-                              <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
-                                 <div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div>
-                                    <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div>
-                                 </div>
-                                 <div style="margin-left: 8px;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div>
-                                    <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div>
-                                 </div>
-                                 <div style="margin-left: auto;">
-                                    <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div>
-                                    <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div>
-                                    <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div>
-                                 </div>
-                              </div>
-                              <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div>
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div>
-                              </div>
-                           </a>
-                           <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/CjLm9EyjpGi/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Omprakash Mankar (@omrmankar)</a></p>
-                        </div>
-                     </blockquote>
-                  </div>
-                  <div class="col-sm-6 col-md-4">
-                     <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CDlqDUbDu8z/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-                        <div style="padding:16px;">
-                           <a href="https://www.instagram.com/p/CDlqDUbDu8z/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank">
-                              <div style=" display: flex; flex-direction: row; align-items: center;">
-                                 <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div>
-                                 <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div>
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div>
-                                 </div>
-                              </div>
-                              <div style="padding: 19% 0;"></div>
-                              <div style="display:block; height:50px; margin:0 auto 12px; width:50px;">
-                                 <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                       <g transform="translate(-511.000000, -20.000000)" fill="#000000">
-                                          <g>
-                                             <path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path>
-                                          </g>
-                                       </g>
-                                    </g>
-                                 </svg>
-                              </div>
-                              <div style="padding-top: 8px;">
-                                 <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div>
-                              </div>
-                              <div style="padding: 12.5% 0;"></div>
-                              <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
-                                 <div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div>
-                                    <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div>
-                                 </div>
-                                 <div style="margin-left: 8px;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div>
-                                    <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div>
-                                 </div>
-                                 <div style="margin-left: auto;">
-                                    <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div>
-                                    <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div>
-                                    <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div>
-                                 </div>
-                              </div>
-                              <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div>
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div>
-                              </div>
-                           </a>
-                           <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/CDlqDUbDu8z/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Omprakash Mankar (@omrmankar)</a></p>
-                        </div>
-                     </blockquote>
-                  </div>
-                  <div class="col-sm-6 col-md-4">
-                     <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Bu1a-cWHMWl/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-                        <div style="padding:16px;">
-                           <a href="https://www.instagram.com/p/Bu1a-cWHMWl/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank">
-                              <div style=" display: flex; flex-direction: row; align-items: center;">
-                                 <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div>
-                                 <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div>
-                                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div>
-                                 </div>
-                              </div>
-                              <div style="padding: 19% 0;"></div>
-                              <div style="display:block; height:50px; margin:0 auto 12px; width:50px;">
-                                 <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                       <g transform="translate(-511.000000, -20.000000)" fill="#000000">
-                                          <g>
-                                             <path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path>
-                                          </g>
-                                       </g>
-                                    </g>
-                                 </svg>
-                              </div>
-                              <div style="padding-top: 8px;">
-                                 <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div>
-                              </div>
-                              <div style="padding: 12.5% 0;"></div>
-                              <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
-                                 <div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div>
-                                    <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div>
-                                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div>
-                                 </div>
-                                 <div style="margin-left: 8px;">
-                                    <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div>
-                                    <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div>
-                                 </div>
-                                 <div style="margin-left: auto;">
-                                    <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div>
-                                    <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div>
-                                    <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div>
-                                 </div>
-                              </div>
-                              <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div>
-                                 <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div>
-                              </div>
-                           </a>
-                           <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/Bu1a-cWHMWl/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Omprakash Mankar (@omrmankar)</a></p>
-                        </div>
-                     </blockquote>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- ====== End Photo ======  -->
-      <!--====== Numbers ======-->
-      <div class="numbers section-padding text-center">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-3 col-sm-6">
-                  <div class="item">
-                     <span class="icon ion-ios-videocam"></span>
-                     <h5 class="counter">+100</h5>
-                     <h6 class="sm-title">Blog post</h6>
-                  </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="item">
-                     <span class="icon ion-ios-people"></span>
-                     <h5 class="counter">+30</h5>
-                     <h6 class="sm-title">Project</h6>
-                  </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="item">
-                     <span class="icon ion-ios-star"></span>
-                     <h5 class="counter">5</h5>
-                     <h6 class="sm-title">5 stars review</h6>
-                  </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="item">
-                     <span class="icon ion-camera"></span>
-                     <h5 class="counter">+201</h5>
-                     <h6 class="sm-title">Click</h6>
-                  </div>
-               </div>
-            </div>
-         </div>
+      <div class="about-stats" style="grid-template-columns:1fr 1fr;gap:1rem;display:grid">
+        <div class="stat-card">
+          <div class="stat-num">10<span style="font-size:1.5rem">yr</span></div>
+          <div class="stat-label">On Drupal.org</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">8<span style="font-size:1.5rem">+</span></div>
+          <div class="stat-label">Modules Maintained</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3<span style="font-size:1.5rem">+</span></div>
+          <div class="stat-label">Companies</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">6<span style="font-size:1.5rem">+</span></div>
+          <div class="stat-label">Industries</div>
+        </div>
       </div>
-      <!--====== End Numbers ======-->
-      <!--====== Services ======-->
-      <section class="services section-padding" data-scroll-index="4">
-         <div class="container">
-            <div class="section-head">
-               <h3>My Services</h3>
-            </div>
-            <div class="row">
-               <div class="col-md-4">
-                  <div class="item text-center">
-                     <span class="icon ion-bug"></span>
-                     <h6>Penetration Tests</h6>
-                     <p></p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item text-center bord">
-                     <span class="icon ion-search"></span>
-                     <h6>System Analysis</h6>
-                     <p></p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item text-center">
-                     <span class="icon ion-social-windows"></span>
-                     <h6>Mysql</h6>
-                     <p></p>
-                  </div>
-               </div>
-               <div class="clear-fix"></div>
-               <div class="border"></div>
-               <div class="col-md-4">
-                  <div class="item text-center">
-                     <span class="icon ion-ios-color-wand"></span>
-                     <h6>Problem Solving</h6>
-                     <p></p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item text-center bord">
-                     <span class="icon ion-paintbucket"></span>
-                     <h6>Graphic Design</h6>
-                     <p></p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item text-center">
-                     <span class="icon ion-code-working"></span>
-                     <h6>Website builder</h6>
-                     <p></p>
-                  </div>
-               </div>
-               <div class="clear-fix"></div>
-            </div>
-         </div>
-      </section>
-      <!--====== End Services ======-->
-      <!--====== Contact ======-->
-      <section class="contact section-padding" data-scroll-index="5">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-7">
-                  <h4 class="head-left">Get In Touch</h4>
-                  <form class="form" id="contact-form" method="post" action="contact.php">
-                     <div class="messages"></div>
-                     <div class="controls">
-                        <div class="row">
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <input id="form_name" type="text" name="name" placeholder="Name" required="required" data-error="Firstname is required.">
-                                 <div class="help-block with-errors"></div>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 <input id="form_email" type="email" name="email" placeholder="Email" required="required" data-error="Valid email is required.">
-                                 <div class="help-block with-errors"></div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-12">
-                              <div class="form-group">
-                                 <input id="form_subject" type="text" name="subject" placeholder="Subject">
-                                 <div class="help-block with-errors"></div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-12">
-                              <div class="form-group">
-                                 <textarea id="form_message" name="message" placeholder="Message" rows="4" required="required" data-error="Message."></textarea>
-                                 <div class="help-block with-errors"></div>
-                              </div>
-                           </div>
-                           <div class="col-sm-12">
-                              <input type="submit" value="Send message">
-                           </div>
-                        </div>
-                     </div>
-                  </form>
-               </div>
-               <div class="col-md-offset-1 col-md-4">
-                  <div class="info">
-                     <div class="item">
-                        <span class="icon ion-person"></span>
-                        <h6>-: Name :- <br>
-                           <span>Omprakash Mankar</span>
-                        </h6>
-                     </div>
-                     <div class="item">
-                        <span class="icon ion-ios-location"></span>
-                        <h6>-: Location :- <br>
-                           <span>Maharashtra , India</span>
-                        </h6>
-                     </div>
-                     <div class="item">
-                        <span class="icon ion-ios-email"></span>
-                        <h6>-: Send Email :- <br>
-                           <span>
-                           <a href="mailto:omrmankar@gmail.com">omrmankar@gmail.com</a>
-                           </span>
-                        </h6>
-                     </div>
-                     <!-- social Icon -->
-                     <div class="social-icon">
-                        <a target="_blank" href="https://twitter.com/omrmankar">
-                        <span>
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                        </span>
-                        </a>
-                        <a target="_blank" href="https://in.linkedin.com/in/omrmankar">
-                        <span>
-                        <i class="fa fa-linkedin" aria-hidden="true"></i>
-                        </span>
-                        </a>
-                        <a target="_blank" href="https://instagram.com/omrmankar/">
-                        <span>
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        </span>
-                        </a>
-                        <a target="_blank" href="https://www.drupal.org/u/omrmankar">
-                        <span>
-                        <i class="fa fa-drupal" aria-hidden="true"></i>
-                        </span>
-                        </a>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-sm-12 text-center">
-                  <p class="copy">Copy Right &copy; By Omprakash Mankar 2022 | ALL RIGHTS RESERVED</p>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!--====== End Contact ======-->
-      <!-- jQuery -->
-      <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-      <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
-      <!-- bootstrap -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-      <!-- scrollIt -->
-      <script src="js/scrollIt.min.js"></script>
-      <!-- magnific-popup -->
-      <script src="js/jquery.magnific-popup.min.js"></script>
-      <!-- stellar js -->
-      <script src="js/jquery.stellar.min.js"></script>
-      <!-- typed js -->
-      <script src="js/typed.js"></script>
-      <!-- jquery.waypoints.min js -->
-      <script src="js/jquery.waypoints.min.js"></script>
-      <!-- jquery.counterup.min js -->
-      <script src="js/jquery.counterup.min.js"></script>
-      <!-- isotope.pkgd.min js -->
-      <script src="js/isotope.pkgd.min.js"></script>
-      <!-- particles.min js -->
-      <script src="js/particles.min.js"></script>
-      <!-- app js -->
-      <script src="js/app.js"></script>
-      <!-- validator js -->
-      <script src="js/validator.js"></script>
-      <!-- custom script -->
-      <script src="js/custom.js"></script>
-      <script async src="//www.instagram.com/embed.js"></script>
-   </body>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-header reveal">
+    <div class="sec-num">02 — Skills</div>
+    <h2 class="sec-title">What I Do</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">🎨</div>
+      <div class="skill-name">Frontend Development</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Twig Templates</span>
+        <span class="skill-tag">CSS/SCSS</span>
+        <span class="skill-tag">JS</span>
+        <span class="skill-tag">Sub-theming</span>
+        <span class="skill-tag">Display Suite</span>
+        <span class="skill-tag">Panels</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-name">Backend Development</div>
+      <div class="skill-tags">
+        <span class="skill-tag">PHP</span>
+        <span class="skill-tag">Custom Modules</span>
+        <span class="skill-tag">Drupal API</span>
+        <span class="skill-tag">Hooks</span>
+        <span class="skill-tag">Services</span>
+        <span class="skill-tag">Plugins</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🏗️</div>
+      <div class="skill-name">Site Building</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Views</span>
+        <span class="skill-tag">Content Types</span>
+        <span class="skill-tag">Taxonomies</span>
+        <span class="skill-tag">Webform</span>
+        <span class="skill-tag">Paragraphs</span>
+        <span class="skill-tag">Layout Builder</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🧩</div>
+      <div class="skill-name">Module Development</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Field Formatters</span>
+        <span class="skill-tag">Widget API</span>
+        <span class="skill-tag">Cron Jobs</span>
+        <span class="skill-tag">Config Forms</span>
+        <span class="skill-tag">AI Integration</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🎭</div>
+      <div class="skill-name">Theming</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Custom Themes</span>
+        <span class="skill-tag">Bootstrap</span>
+        <span class="skill-tag">Responsive Design</span>
+        <span class="skill-tag">Pattern Lab</span>
+        <span class="skill-tag">Storybook</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🤝</div>
+      <div class="skill-name">Community & Mentoring</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Open Source</span>
+        <span class="skill-tag">Code Review</span>
+        <span class="skill-tag">Mentoring</span>
+        <span class="skill-tag">Documentation</span>
+        <span class="skill-tag">Issue Queue</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-header reveal">
+    <div class="sec-num">03 — Open Source</div>
+    <h2 class="sec-title">Drupal Contributions</h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-num">// MODULE — 01</div>
+      <div class="project-name">PDF To Canvas File Field Formatter</div>
+      <div class="project-desc">Renders PDF files within Drupal field formatters using the HTML5 Canvas API, allowing inline PDF preview without external plugins.</div>
+      <a href="https://www.drupal.org/project/pdf_to_canvas" class="project-link" target="_blank">drupal.org →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">// MODULE — 02</div>
+      <div class="project-name">ChatGPT OpenAI Integration</div>
+      <div class="project-desc">Integrates OpenAI's ChatGPT into Drupal sites, enabling AI-powered content assistance directly within the CMS workflow.</div>
+      <a href="https://www.drupal.org/project/chatgpt_openai" class="project-link" target="_blank">drupal.org →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">// MODULE — 03</div>
+      <div class="project-name">Confetti Falling</div>
+      <div class="project-desc">Adds a delightful animated confetti effect to Drupal pages — perfect for celebration events, awards, and campaign landing pages.</div>
+      <a href="https://www.drupal.org/project/confetti_falling" class="project-link" target="_blank">drupal.org →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">// MODULE — 04</div>
+      <div class="project-name">Country State Field</div>
+      <div class="project-desc">Provides a linked country-state dropdown field widget for Drupal, dynamically updating state options based on country selection.</div>
+      <a href="https://www.drupal.org/project/country_state" class="project-link" target="_blank">drupal.org →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">// MODULE — 05</div>
+      <div class="project-name">Cron Timing</div>
+      <div class="project-desc">Provides fine-grained control over Drupal cron job timing, enabling developers to schedule tasks at specific intervals with precision.</div>
+      <a href="https://www.drupal.org/project/cron_timing" class="project-link" target="_blank">drupal.org →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">// MODULE — 06</div>
+      <div class="project-name">Before/After Field Formatter</div>
+      <div class="project-desc">Renders image fields as interactive before/after sliders — ideal for showcasing transformations in healthcare, design, and renovation sites.</div>
+      <a href="https://www.drupal.org/project/before_after" class="project-link" target="_blank">drupal.org →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">// MODULE — 07</div>
+      <div class="project-name">Current IP Address</div>
+      <div class="project-desc">A Drupal module that exposes the current visitor's IP address as a field token and block, useful for personalisation and access control.</div>
+      <a href="https://www.drupal.org/project/current_ip" class="project-link" target="_blank">drupal.org →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">// MODULE — 08</div>
+      <div class="project-name">Pancard Number Widget</div>
+      <div class="project-desc">Provides a validated PAN card input widget for Indian compliance-focused Drupal forms, with format enforcement and field integration.</div>
+      <a href="https://www.drupal.org/project/pancard_number_widget" class="project-link" target="_blank">drupal.org →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-header reveal">
+    <div class="sec-num">04 — Experience</div>
+    <h2 class="sec-title">Work History</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Current · 2024 – Present</div>
+      <div class="timeline-role">Senior Developer</div>
+      <div class="timeline-company">UnifyCX · Pune, Maharashtra</div>
+      <div class="timeline-desc">Leading Drupal development initiatives, architecting scalable CMS solutions, and driving technical direction for enterprise-grade digital platforms.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Previous</div>
+      <div class="timeline-role">Drupal Developer</div>
+      <div class="timeline-company">OpenSense Labs</div>
+      <div class="timeline-desc">Developed custom Drupal modules and themes for clients across Government, Healthcare, and Education sectors. Contributed to open-source Drupal ecosystem.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Previous</div>
+      <div class="timeline-role">Drupal Developer</div>
+      <div class="timeline-company">Neosoft Technologies</div>
+      <div class="timeline-desc">Built and maintained Drupal sites for pharmaceutical and banking clients. Focused on backend module development and advanced Views configurations.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Earlier</div>
+      <div class="timeline-role">Web Developer</div>
+      <div class="timeline-company">NewTechFusion Cybertech Pvt Ltd · Indore</div>
+      <div class="timeline-desc">Delivered Drupal solutions for diverse clients, specialising in custom theme development, site building, and Twig template engineering.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-header reveal">
+    <div class="sec-num">05 — Contact</div>
+    <h2 class="sec-title">Let's Connect</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-links reveal">
+      <a href="https://www.linkedin.com/in/omrmankar/" target="_blank" class="contact-link">
+        <span class="cl-icon">🔗</span>
+        <div class="cl-info">
+          <div class="cl-label">LinkedIn</div>
+          <div class="cl-val">linkedin.com/in/omrmankar</div>
+        </div>
+      </a>
+      <a href="https://www.drupal.org/u/omrmankar" target="_blank" class="contact-link">
+        <span class="cl-icon">🌐</span>
+        <div class="cl-info">
+          <div class="cl-label">Drupal.org</div>
+          <div class="cl-val">drupal.org/u/omrmankar</div>
+        </div>
+      </a>
+      <a href="https://omrmankar.hashnode.dev/" target="_blank" class="contact-link">
+        <span class="cl-icon">✍️</span>
+        <div class="cl-info">
+          <div class="cl-label">Blog (Hashnode)</div>
+          <div class="cl-val">omrmankar.hashnode.dev</div>
+        </div>
+      </a>
+      <a href="https://stackoverflow.com/users/8450744/omrmankar" target="_blank" class="contact-link">
+        <span class="cl-icon">💬</span>
+        <div class="cl-info">
+          <div class="cl-label">Stack Overflow</div>
+          <div class="cl-val">stackoverflow.com/users/8450744</div>
+        </div>
+      </a>
+      <a href="https://git.drupalcode.org/omrmankar" target="_blank" class="contact-link">
+        <span class="cl-icon">🦊</span>
+        <div class="cl-info">
+          <div class="cl-label">GitLab (DrupalCode)</div>
+          <div class="cl-val">git.drupalcode.org/omrmankar</div>
+        </div>
+      </a>
+    </div>
+    <div class="contact-note reveal">
+      <h3>Open to collaboration</h3>
+      <p>Whether you're building a Drupal project, need a custom module, want a technical review, or just want to talk open source — I'd love to hear from you.</p>
+      <p style="margin-top:1rem">📍 Pune, Maharashtra, India</p>
+      <p style="margin-top:0.75rem">🗣 English · Hindi · Marathi</p>
+      <p style="margin-top:2rem;font-size:0.72rem;color:var(--accent)">
+        contributor · maintainer · mentor
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Omprakash Mankar</span>
+  <span>Built with 💙 — <span>Pune, Maharashtra</span></span>
+  <span>© 2025</span>
+</footer>
+
+<script>
+// ——— Custom Cursor ———
+const cursorDot = document.getElementById('cursor-dot');
+const cursorRing = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animCursor() {
+  rx += (mx - rx) * 0.15;
+  ry += (my - ry) * 0.15;
+  cursorDot.style.left = mx + 'px';
+  cursorDot.style.top = my + 'px';
+  cursorRing.style.left = rx + 'px';
+  cursorRing.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+})();
+
+// ——— Three.js Background ———
+const canvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 60;
+
+// Particles
+const geo = new THREE.BufferGeometry();
+const count = 1800;
+const positions = new Float32Array(count * 3);
+const colors = new Float32Array(count * 3);
+for (let i = 0; i < count * 3; i += 3) {
+  positions[i] = (Math.random() - 0.5) * 200;
+  positions[i+1] = (Math.random() - 0.5) * 200;
+  positions[i+2] = (Math.random() - 0.5) * 200;
+  const r = Math.random();
+  if (r < 0.5) { colors[i]=0; colors[i+1]=0.9; colors[i+2]=1; }
+  else if (r < 0.8) { colors[i]=0.49; colors[i+1]=0.23; colors[i+2]=0.93; }
+  else { colors[i]=1; colors[i+1]=0.9; colors[i+2]=0.3; }
+}
+geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+const mat = new THREE.PointsMaterial({ size: 0.4, vertexColors: true, transparent: true, opacity: 0.75 });
+const particles = new THREE.Points(geo, mat);
+scene.add(particles);
+
+// Wireframe torus
+const torusGeo = new THREE.TorusGeometry(30, 1, 16, 80);
+const torusMat = new THREE.MeshBasicMaterial({ color: 0x00e5ff, wireframe: true, transparent: true, opacity: 0.05 });
+const torus = new THREE.Mesh(torusGeo, torusMat);
+torus.rotation.x = Math.PI / 4;
+scene.add(torus);
+
+// Grid lines
+const gridHelper = new THREE.GridHelper(200, 40, 0x0a1628, 0x0a1628);
+gridHelper.position.y = -40;
+gridHelper.material.opacity = 0.3;
+gridHelper.material.transparent = true;
+scene.add(gridHelper);
+
+// Mouse parallax
+let targetX = 0, targetY = 0;
+document.addEventListener('mousemove', e => {
+  targetX = (e.clientX / window.innerWidth - 0.5) * 0.3;
+  targetY = (e.clientY / window.innerHeight - 0.5) * 0.3;
+});
+
+let frame = 0;
+(function animate() {
+  requestAnimationFrame(animate);
+  frame++;
+  particles.rotation.y += 0.0004;
+  particles.rotation.x += 0.0002;
+  torus.rotation.y += 0.003;
+  torus.rotation.z += 0.001;
+  camera.position.x += (targetX * 10 - camera.position.x) * 0.02;
+  camera.position.y += (-targetY * 8 - camera.position.y) * 0.02;
+  camera.lookAt(scene.position);
+  renderer.render(scene, camera);
+})();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ——— Scroll Reveal ———
+const reveals = document.querySelectorAll('.reveal, .timeline-item');
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.15 });
+reveals.forEach(el => io.observe(el));
+
+// ——— Active nav on scroll ———
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+  });
+});
+</script>
+</body>
 </html>
